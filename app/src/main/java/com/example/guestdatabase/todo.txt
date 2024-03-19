@@ -1,0 +1,11 @@
+
+- (done) Entities
+- (done) Dao
+- (done) Database
+
+Anbindung
+- (done) Repository
+- (done) ViewModel
+- UI
+
+
