@@ -1,11 +1,19 @@
 
-- (done) Entities
-- (done) Dao
-- (done) Database
 
-Anbindung
-- (done) Repository
-- (done) ViewModel
-- UI
+Features:
+- (alle Daten löschen)
+- (done) einzelne Einträge löschen
+- Filter nach Essenspräferenz
+- (done) Einträge bearbeiten
+- (done) Datenkomplexität erhöhen
+    - Zugesagt/Abgesagt(Boolean)
+    - Kommentar(String)
+- (Suche nach Name)
 
+
+
+Einträge bearbeiten
+- (done) Eigenes Fragment -> Fragmente und Navigation
+- (done) Ausgewählter Gast soll weitergegeben werden an EditFragment
+- (done) Daten in der Datenbank updaten
 

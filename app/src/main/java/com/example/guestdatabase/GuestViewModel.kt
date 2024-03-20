@@ -2,8 +2,8 @@ package com.example.guestdatabase
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.guestdatabase.db.GuestRepository
 import com.example.guestdatabase.db.getDatabase
@@ -17,14 +17,30 @@ class GuestViewModel(application: Application) : AndroidViewModel(application) {
 
     val allGuests = repository.allGuests
 
-    fun insertGuest(guest: Guest) {
+    private val _selectedGuest = MutableLiveData<Guest>()
+    val selectedGuest: LiveData<Guest>
+        get() = _selectedGuest
+
+    fun selectGuest(guest: Guest){
+        _selectedGuest.value = guest
+    }
+
+    fun upsertGuest(guest: Guest) {
 
         if (guest.name.isNotBlank() && guest.food.isNotEmpty()) {
 
             viewModelScope.launch(Dispatchers.IO) {
-                repository.insertGuest(guest)
+                repository.upsertGuest(guest)
             }
         }
+    }
+
+    fun deleteGuest(guest: Guest){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteGuest(guest)
+        }
+
     }
 
 }

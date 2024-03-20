@@ -7,8 +7,12 @@ class GuestRepository(val database: GuestDatabase) {
 
     val allGuests: LiveData<List<Guest>> = database.guestDao.getAllLiveData()
 
-    suspend fun insertGuest(guest: Guest){
-        database.guestDao.insertGuest(guest)
+    fun upsertGuest(guest: Guest){
+        database.guestDao.upsertGuest(guest)
+    }
+
+    fun deleteGuest(guest: Guest){
+        database.guestDao.deleteGuest(guest)
     }
 
 }

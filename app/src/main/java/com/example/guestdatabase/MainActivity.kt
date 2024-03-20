@@ -1,6 +1,5 @@
 package com.example.guestdatabase
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.guestdatabase.databinding.ActivityMainBinding
 import com.example.guestdatabase.databinding.AddGuestDialogBinding
 import com.example.guestdatabase.db.model.Guest
+import com.example.guestdatabase.ui.GuestAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,32 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        viewModel.allGuests.observe(this) {
-            Log.d("GuestDataTest", "$it")
 
-            binding.guestRV.adapter = GuestAdapter(it)
-        }
-
-        binding.addBTN.setOnClickListener {
-
-            val dialogBinding = AddGuestDialogBinding.inflate(layoutInflater)
-
-            AlertDialog.Builder(this)
-                .setView(dialogBinding.root)
-                .setNegativeButton("Abbrechen") { _, _ ->
-
-                }
-                .setPositiveButton("Hinzufügen") { _, _ ->
-                    val guest =
-                        Guest(
-                            name = dialogBinding.guestDialogNameET.text.toString(),
-                            food = dialogBinding.guestDialogFoodET.text.toString()
-                        )
-                    viewModel.insertGuest(guest)
-                }
-                .show()
-
-        }
 
     }
 

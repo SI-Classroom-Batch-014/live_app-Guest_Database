@@ -11,4 +11,11 @@ data class Guest(
 
     val name: String,
     val food: String,
+
+    //true -> Hat fest zugesagt
+    //false -> ist noch unklar
+    //Wenn abgesagt -> aus der Datenbank löschen
+    val isComing: Boolean,
+
+    val comment: String,
 )
