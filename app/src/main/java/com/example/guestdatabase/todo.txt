@@ -4,6 +4,7 @@ Features:
 - (alle Daten löschen)
 - (done) einzelne Einträge löschen
 - Filter nach Essenspräferenz
+- Suche nach Namen
 - (done) Einträge bearbeiten
 - (done) Datenkomplexität erhöhen
     - Zugesagt/Abgesagt(Boolean)

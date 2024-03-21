@@ -28,6 +28,9 @@ interface GuestDao {
     @Query("DELETE FROM Guest")
     fun deleteAll()
 
+    @Query("SELECT * FROM Guest WHERE instr(name, :searchTerm) OR instr(food, :searchTerm)")
+    suspend fun searchGuest(searchTerm: String) : List<Guest>
+
 
 
 }

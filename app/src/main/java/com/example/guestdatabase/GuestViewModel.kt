@@ -15,13 +15,11 @@ class GuestViewModel(application: Application) : AndroidViewModel(application) {
 
     val repository = GuestRepository(getDatabase(application))
 
-    val allGuests = repository.allGuests
-
     private val _selectedGuest = MutableLiveData<Guest>()
     val selectedGuest: LiveData<Guest>
         get() = _selectedGuest
 
-    fun selectGuest(guest: Guest){
+    fun selectGuest(guest: Guest) {
         _selectedGuest.value = guest
     }
 
@@ -35,10 +33,22 @@ class GuestViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteGuest(guest: Guest){
+    fun deleteGuest(guest: Guest) {
 
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteGuest(guest)
+        }
+
+    }
+
+    private val _filteredGuests: MutableLiveData<List<Guest>> = MutableLiveData()
+    val filteredGuest: LiveData<List<Guest>>
+        get() = _filteredGuests
+
+    fun searchGuests(searchTerm: String) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _filteredGuests.postValue(repository.searchGuests(searchTerm))
         }
 
     }

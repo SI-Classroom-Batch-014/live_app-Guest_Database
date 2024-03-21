@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import com.example.guestdatabase.GuestViewModel
 import com.example.guestdatabase.databinding.AddGuestDialogBinding
@@ -31,17 +32,23 @@ class GuestListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Load all guests to initalize the LiveData in the ViewModel
+        viewModel.searchGuests("")
 
-
-        viewModel.allGuests.observe(viewLifecycleOwner) {
+        viewModel.filteredGuest.observe(viewLifecycleOwner) {
             Log.d("GuestDataTest", "$it")
 
             binding.guestRV.adapter = GuestAdapter(it, viewModel)
         }
 
+        binding.searchET.addTextChangedListener {
+            viewModel.searchGuests(it.toString())
+        }
+
+
         binding.addBTN.setOnClickListener {
 
-           showDialog()
+            showDialog()
 
         }
 
