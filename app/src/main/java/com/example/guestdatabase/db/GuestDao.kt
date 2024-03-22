@@ -28,8 +28,9 @@ interface GuestDao {
     @Query("DELETE FROM Guest")
     fun deleteAll()
 
+    //Jedes Mal wenn diese Funktion ausgeführt wird, wird eine neue LiveData erstellt
     @Query("SELECT * FROM Guest WHERE instr(name, :searchTerm) OR instr(food, :searchTerm)")
-    suspend fun searchGuest(searchTerm: String) : List<Guest>
+    fun searchGuest(searchTerm: String) : LiveData<List<Guest>>
 
 
 

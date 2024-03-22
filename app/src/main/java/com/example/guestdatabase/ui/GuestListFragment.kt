@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import com.example.guestdatabase.GuestViewModel
 import com.example.guestdatabase.databinding.AddGuestDialogBinding
 import com.example.guestdatabase.databinding.FragmentGuestListBinding
@@ -32,17 +33,11 @@ class GuestListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //Load all guests to initalize the LiveData in the ViewModel
-        viewModel.searchGuests("")
+        observeGuests(viewModel.searchGuests(""))
 
-        viewModel.filteredGuest.observe(viewLifecycleOwner) {
-            Log.d("GuestDataTest", "$it")
-
-            binding.guestRV.adapter = GuestAdapter(it, viewModel)
-        }
 
         binding.searchET.addTextChangedListener {
-            viewModel.searchGuests(it.toString())
+            observeGuests(viewModel.searchGuests(it.toString()))
         }
 
 
@@ -52,6 +47,20 @@ class GuestListFragment : Fragment() {
 
         }
 
+    }
+
+    fun observeGuests(guestsLiveData: LiveData<List<Guest>>) {
+        Log.d("ProgrammFluss1", "test")
+
+        guestsLiveData.observe(viewLifecycleOwner) {
+
+            Log.d("ProgrammFluss2", "test")
+
+
+            Log.d("GuestDataTest", "$it")
+
+            binding.guestRV.adapter = GuestAdapter(it, viewModel)
+        }
     }
 
 
@@ -74,7 +83,6 @@ class GuestListFragment : Fragment() {
                         isComing = false,
                     )
                 viewModel.upsertGuest(guest)
-
 
 
             }

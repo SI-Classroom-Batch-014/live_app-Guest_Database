@@ -25,11 +25,12 @@ class GuestViewModel(application: Application) : AndroidViewModel(application) {
 
     fun upsertGuest(guest: Guest) {
 
-        if (guest.name.isNotBlank() && guest.food.isNotEmpty()) {
+        if (guest.name.isNotBlank() && guest.food.isNotBlank()) {
 
             viewModelScope.launch(Dispatchers.IO) {
                 repository.upsertGuest(guest)
             }
+
         }
     }
 
@@ -41,16 +42,8 @@ class GuestViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
-    private val _filteredGuests: MutableLiveData<List<Guest>> = MutableLiveData()
-    val filteredGuest: LiveData<List<Guest>>
-        get() = _filteredGuests
-
-    fun searchGuests(searchTerm: String) {
-
-        viewModelScope.launch(Dispatchers.IO) {
-            _filteredGuests.postValue(repository.searchGuests(searchTerm))
-        }
-
+    fun searchGuests(searchTerm: String): LiveData<List<Guest>> {
+        return repository.searchGuests(searchTerm)
     }
 
 }

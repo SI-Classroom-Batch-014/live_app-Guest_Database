@@ -17,8 +17,11 @@ class GuestRepository(val database: GuestDatabase) {
         database.guestDao.deleteGuest(guest)
     }
 
-    suspend fun searchGuests(searchTerm: String): List<Guest> {
+    fun searchGuests(searchTerm: String): LiveData<List<Guest>> {
         return database.guestDao.searchGuest(searchTerm)
     }
+
+
+//    fun searchGuests(searchTerm: String) = database.guestDao.searchGuest(searchTerm)
 
 }
